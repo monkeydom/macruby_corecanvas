@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'corecanvas'
 HERE = File.expand_path(File.dirname(__FILE__))
-require File.join(HERE, 'app_wrapper')
+require File.join(HERE, 'lib/app_wrapper')
 
 class CustomView < NSView
   include CoreCanvas
