@@ -146,13 +146,12 @@ module CoreCanvas
 
 end
 
-here = File.expand_path(File.dirname(__FILE__))
-require File.join(here, 'lib', 'canvas')
-require File.join(here, 'lib', 'color')
-require File.join(here, 'lib', 'gradient')
-require File.join(here, 'lib', 'image')
-require File.join(here, 'lib', 'path')
-require File.join(here, 'lib', 'pdf')
-require File.join(here, 'lib', 'elements/particle')
-require File.join(here, 'lib', 'elements/rope')
-require File.join(here, 'lib', 'elements/sandpainter')
+require 'corecanvas/canvas'
+require 'corecanvas/color'
+require 'corecanvas/gradient'
+require 'corecanvas/image'
+require 'corecanvas/path'
+require 'corecanvas/pdf'
+require 'corecanvas/elements/particle'
+require 'corecanvas/elements/rope'
+require 'corecanvas/elements/sandpainter'

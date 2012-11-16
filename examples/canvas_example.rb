@@ -1,7 +1,7 @@
-framework 'Cocoa'
-here = File.expand_path(File.dirname(__FILE__))
-require File.join(here, '..', 'corecanvas')
-require File.join(here, 'app_wrapper')
+require 'rubygems'
+require 'corecanvas'
+HERE = File.expand_path(File.dirname(__FILE__))
+require File.join(HERE, 'app_wrapper')
 
 class CustomView < NSView
   include CoreCanvas

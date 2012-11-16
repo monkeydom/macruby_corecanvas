@@ -1,5 +1,5 @@
 require 'minitest/spec'
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'graphics')
+require File.join(File.expand_path(File.dirname(__FILE__)), '../lib', 'corecanvas')
 MiniTest::Unit.autorun
 include CoreCanvas
 

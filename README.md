@@ -11,6 +11,10 @@ See [HotCocoa Graphics by drtoast](http://hcg.drtoast.com)
 - Keep it light and maintainable and maintain it running from OS X Lion upwards
 - make it ideal for production class generative image generation
 
+### examples
+run all the examples via
+
+	macrake examples
 
 ## Heritage
  

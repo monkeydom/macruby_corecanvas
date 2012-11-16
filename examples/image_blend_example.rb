@@ -1,6 +1,6 @@
-framework 'Cocoa'
+require 'rubygems'
+require 'corecanvas'
 HERE = File.expand_path(File.dirname(__FILE__))
-require File.join(HERE, '..', 'corecanvas')
 require File.join(HERE, 'app_wrapper')
 
 
