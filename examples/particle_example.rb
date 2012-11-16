@@ -1,10 +1,10 @@
 framework 'Cocoa'
 HERE = File.expand_path(File.dirname(__FILE__))
-require File.join(HERE, '..', 'graphics')
+require File.join(HERE, '..', 'corecanvas')
 require File.join(HERE, 'app_wrapper')
 
 class CustomView < NSView
-  include MRGraphics
+  include CoreCanvas
 
   def drawRect(rect)
     dimensions = [CGRectGetWidth(rect), CGRectGetHeight(rect)]
@@ -37,10 +37,10 @@ class CustomView < NSView
       particles    = []
       numparticles.times do |i|
         # start particle at random point at bottom of canvas
-        x = MRGraphics.random(c.width/2 - 50, c.width/2 + 50)
+        x = CoreCanvas.random(c.width/2 - 50, c.width/2 + 50)
         p = Particle.new(x,0)
-        p.velocity_x = MRGraphics.random(-0.5,0.5) # set initial x velocity
-        p.velocity_y = MRGraphics.random(1.0,3.0) # set initial y velocity
+        p.velocity_x = CoreCanvas.random(-0.5,0.5) # set initial x velocity
+        p.velocity_y = CoreCanvas.random(1.0,3.0) # set initial y velocity
         p.acceleration = 0.1 # set drag or acceleration
         particles[i] = p # add particle to array
       end
@@ -56,9 +56,9 @@ class CustomView < NSView
       numparticles.times do |i|
         c.push
         # choose a stem color
-        color = MRGraphics.choose(blue_colors).a(0.7).analog(20,0.7)
+        color = CoreCanvas.choose(blue_colors).a(0.7).analog(20,0.7)
         c.stroke(color)
-        c.stroke_width(MRGraphics.random(0.5,2.0))
+        c.stroke_width(CoreCanvas.random(0.5,2.0))
 
         # draw the particle
         particles[i].draw(c)

@@ -1,10 +1,10 @@
 framework 'Cocoa'
 here = File.expand_path(File.dirname(__FILE__))
-require File.join(here, '..', 'graphics')
+require File.join(here, '..', 'corecanvas')
 require File.join(here, 'app_wrapper')
 
 class CustomView < NSView
-  include MRGraphics
+  include CoreCanvas
 
   def drawRect(rect)
     dimensions = [CGRectGetWidth(rect), CGRectGetHeight(rect)]

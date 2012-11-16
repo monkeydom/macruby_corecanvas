@@ -13,7 +13,7 @@
 # Copyright:: Copyright (c) 2008 James Reynolds
 # License::   Distributes under the same terms as Ruby
 
-module MRGraphics
+module CoreCanvas
   
   # wandering particle with brownian motion
   class Particle 
@@ -51,8 +51,8 @@ module MRGraphics
       @y += @velocity_y
 
       # randomly increase/decrease direction
-      @velocity_x += MRGraphics.random(-1.0, 1.0) * @acceleration
-      @velocity_y += MRGraphics.random(-1.0, 1.0) * @acceleration
+      @velocity_x += CoreCanvas.random(-1.0, 1.0) * @acceleration
+      @velocity_y += CoreCanvas.random(-1.0, 1.0) * @acceleration
 
       # draw a line from the old position to the new
       @points.push(NSPoint.new(@x, @y))

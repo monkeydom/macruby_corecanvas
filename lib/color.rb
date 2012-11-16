@@ -13,7 +13,7 @@
 # Copyright:: Copyright (c) 2008 James Reynolds
 # License::   Distributes under the same terms as Ruby
 
-module MRGraphics
+module CoreCanvas
 
   # define and manipulate colors in RGBA format
   class Color
@@ -532,11 +532,11 @@ module MRGraphics
       current_brightness = self.brightness
       # generate new values
       randhue = ((rand * maxhue) - maxhue/2.0) + current_hue
-      randhue = MRGraphics.in_range(randhue, (@original_hue - maxhue/2.0),(@original_hue + maxhue/2.0))
+      randhue = CoreCanvas.in_range(randhue, (@original_hue - maxhue/2.0),(@original_hue + maxhue/2.0))
       randsat = (rand * maxsat) - maxsat/2.0 + current_saturation
-      randsat = MRGraphics.in_range(randsat, @original_saturation - maxsat/2.0,@original_saturation + maxsat/2.0)
+      randsat = CoreCanvas.in_range(randsat, @original_saturation - maxsat/2.0,@original_saturation + maxsat/2.0)
       randbright = (rand * maxbright) - maxbright/2.0 + current_brightness
-      randbright = MRGraphics.in_range(randbright, @original_brightness - maxbright/2.0,@original_brightness + maxbright/2.0)
+      randbright = CoreCanvas.in_range(randbright, @original_brightness - maxbright/2.0,@original_brightness + maxbright/2.0)
       # assign new values
       self.hue(randhue)
       self.saturation(randsat)
@@ -670,7 +670,7 @@ module MRGraphics
     # The contrast determines the darkness/lightness of
     # the analogue colors in respect to the given colors.
     def analogous(angle=10, contrast=0.25)
-      contrast = MRGraphics.in_range(contrast, 0.0, 1.0)
+      contrast = CoreCanvas.in_range(contrast, 0.0, 1.0)
 
       colors = []
       colors << self
@@ -816,7 +816,7 @@ module MRGraphics
       # vary a single color component by a multiplier
       def vary(original, variance)
         newvalue = original + (rand * variance * (rand > 0.5 ? 1 : -1))
-        newvalue = MRGraphics.in_range(newvalue,0.0,1.0)
+        newvalue = CoreCanvas.in_range(newvalue,0.0,1.0)
         newvalue
       end
   

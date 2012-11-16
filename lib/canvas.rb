@@ -18,7 +18,7 @@
 # http://developer.apple.com/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_overview/dq_overview.html#//apple_ref/doc/uid/TP30001066-CH202-TPXREF101
 
 
-module MRGraphics
+module CoreCanvas
 
   # drawing destination for writing a PDF, PNG, GIF, JPG, or TIF file
   class Canvas
@@ -354,8 +354,8 @@ module MRGraphics
   
     # draw the arc of a circle with center point x,y, radius, start angle (0 deg = 12 o'clock) and end angle
     def arc(x, y, radius, start_angle, end_angle)
-      start_angle = MRGraphics.radians(90-start_angle)
-      end_angle = MRGraphics.radians(90-end_angle)
+      start_angle = CoreCanvas.radians(90-start_angle)
+      end_angle = CoreCanvas.radians(90-end_angle)
       clockwise = 1 # 1 = clockwise, 0 = counterclockwise
       CGContextAddArc(@ctx, x, y, radius, start_angle, end_angle, clockwise)
       CGContextDrawPath(@ctx, KCGPathStroke)
@@ -473,7 +473,7 @@ module MRGraphics
   
     # rotate by the specified degrees
     def rotate(deg=0)
-      CGContextRotateCTM(@ctx, MRGraphics.radians(-deg));
+      CGContextRotateCTM(@ctx, CoreCanvas.radians(-deg));
     end
   
     # translate drawing context by x,y
@@ -705,13 +705,13 @@ module MRGraphics
             if (i > 0)
               # INCREMENT TRANSFORM:
               # translate x, y
-              translate(MRGraphics.choose(p.inc[:x]), MRGraphics.choose(p.inc[:y]))
+              translate(CoreCanvas.choose(p.inc[:x]), CoreCanvas.choose(p.inc[:y]))
               # choose a rotation factor from the range
-              rotate(MRGraphics.choose(p.inc[:rotation]))
+              rotate(CoreCanvas.choose(p.inc[:rotation]))
               # choose a scaling factor from the range
-              sc = MRGraphics.choose(p.inc[:scale])
-              sx = MRGraphics.choose(p.inc[:scale_x]) * sc
-              sy = p.inc[:scale_y] ? MRGraphics.choose(p.inc[:scale_y]) * sc : sx * sc
+              sc = CoreCanvas.choose(p.inc[:scale])
+              sx = CoreCanvas.choose(p.inc[:scale_x]) * sc
+              sy = p.inc[:scale_y] ? CoreCanvas.choose(p.inc[:scale_y]) * sc : sx * sc
               scale(sx, sy)
             end
 
@@ -727,7 +727,7 @@ module MRGraphics
                   c = p.rand[kind]
                   case c
                   when Array
-                    c = MRGraphics.choose(c).copy
+                    c = CoreCanvas.choose(c).copy
                   when Color
                     c = c.copy
                   else
@@ -738,27 +738,27 @@ module MRGraphics
                 if (p.inc[:hue] or p.inc[:saturation] or p.inc[:brightness])
                   # ITERATE COLOR
                   if (p.inc[:hue])
-                    newhue = (c.hue + MRGraphics.choose(p.inc[:hue])) % 1
+                    newhue = (c.hue + CoreCanvas.choose(p.inc[:hue])) % 1
                     c.hue(newhue)
                   end
                   if (p.inc[:saturation])
-                    newsat = (c.saturation + MRGraphics.choose(p.inc[:saturation]))
+                    newsat = (c.saturation + CoreCanvas.choose(p.inc[:saturation]))
                     c.saturation(newsat)
                   end
                   if (p.inc[:brightness])
-                    newbright = (c.brightness + MRGraphics.choose(p.inc[:brightness]))
+                    newbright = (c.brightness + CoreCanvas.choose(p.inc[:brightness]))
                     c.brightness(newbright)
                   end
                   if (p.inc[:alpha])
-                    newalpha = (c.a + MRGraphics.choose(p.inc[:alpha]))
+                    newalpha = (c.a + CoreCanvas.choose(p.inc[:alpha]))
                     c.a(newalpha)
                   end
                   p.rand[kind] = c
                 else
                   # RANDOMIZE COLOR
-                  c.hue(MRGraphics.choose(p.rand[:hue])) if p.rand[:hue]
-                  c.saturation(MRGraphics.choose(p.rand[:saturation])) if p.rand[:saturation]
-                  c.brightness(MRGraphics.choose(p.rand[:brightness])) if p.rand[:brightness]
+                  c.hue(CoreCanvas.choose(p.rand[:hue])) if p.rand[:hue]
+                  c.saturation(CoreCanvas.choose(p.rand[:saturation])) if p.rand[:saturation]
+                  c.brightness(CoreCanvas.choose(p.rand[:brightness])) if p.rand[:brightness]
                 end
 
                 # APPLY COLOR
@@ -766,19 +766,19 @@ module MRGraphics
                 stroke(c) if kind == :stroke
               end
               # choose a stroke width from the range
-              stroke_width(MRGraphics.choose(p.rand[:stroke_width])) if p.rand[:stroke_width]
+              stroke_width(CoreCanvas.choose(p.rand[:stroke_width])) if p.rand[:stroke_width]
               # choose an alpha level from the range
-              alpha(MRGraphics.choose(p.rand[:alpha])) if p.rand[:alpha]
+              alpha(CoreCanvas.choose(p.rand[:alpha])) if p.rand[:alpha]
 
               # RANDOMIZE TRANSFORM:
               # translate x, y
-              translate(MRGraphics.choose(p.rand[:x]), MRGraphics.choose(p.rand[:y]))
+              translate(CoreCanvas.choose(p.rand[:x]), CoreCanvas.choose(p.rand[:y]))
               # choose a rotation factor from the range
-              rotate(MRGraphics.choose(p.rand[:rotation]))
+              rotate(CoreCanvas.choose(p.rand[:rotation]))
               # choose a scaling factor from the range
-              sc = MRGraphics.choose(p.rand[:scale])
-              sx = MRGraphics.choose(p.rand[:scale_x]) * sc
-              sy = p.rand[:scale_y] ? MRGraphics.choose(p.rand[:scale_y]) * sc : sx * sc
+              sc = CoreCanvas.choose(p.rand[:scale])
+              sx = CoreCanvas.choose(p.rand[:scale_x]) * sc
+              sy = p.rand[:scale_y] ? CoreCanvas.choose(p.rand[:scale_y]) * sc : sx * sc
               scale(sx,sy)
 
               # DRAW

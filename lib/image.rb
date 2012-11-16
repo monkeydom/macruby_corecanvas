@@ -13,7 +13,7 @@
 # Copyright:: Copyright (c) 2008 James Reynolds
 # License::   Distributes under the same terms as Ruby
 
-module MRGraphics
+module CoreCanvas
   
   # load a raw image file for use on a canvas
   class Image
@@ -225,7 +225,7 @@ module MRGraphics
     # rotate image by degrees
     def rotate(deg)
       puts "image.rotate #{deg}" if @verbose
-      #transform = CGAffineTransformMakeRotation(MRGraphics.radians(deg));
+      #transform = CGAffineTransformMakeRotation(CoreCanvas.radians(deg));
       transform = NSAffineTransform.transform
       transform.rotateByDegrees(-deg)
       filter 'CIAffineTransform', :inputTransform => transform
@@ -234,7 +234,7 @@ module MRGraphics
     
     # set the origin to the specified location (:center, :bottom_left, etc)
     def origin(location=:bottom_left)
-      movex, movey = MRGraphics.reorient(x, y, width, height, location)
+      movex, movey = CoreCanvas.reorient(x, y, width, height, location)
       translate(movex, movey)
     end
   
@@ -249,7 +249,7 @@ module MRGraphics
   
     # apply a gaussian blur with pixel radius 1-100
     def blur(radius=10.0)
-      filter 'CIGaussianBlur', :inputRadius => MRGraphics.in_range(radius, 1.0, 100.0)
+      filter 'CIGaussianBlur', :inputRadius => CoreCanvas.in_range(radius, 1.0, 100.0)
       self
     end
   
@@ -263,26 +263,26 @@ module MRGraphics
     def motionblur(radius=10.0, angle=90.0)
       oldx, oldy, oldw, oldh = [x, y, width, height]
       clamp
-      filter 'CIMotionBlur', :inputRadius => radius, :inputAngle => MRGraphics.radians(angle)
+      filter 'CIMotionBlur', :inputRadius => radius, :inputAngle => CoreCanvas.radians(angle)
       crop(oldx, oldy, oldw, oldh)
       self
     end
 
     # rotate pixels around x,y with radius and angle
     def twirl(x=0, y=0, radius=300, angle=90.0)
-      filter 'CITwirlDistortion', :inputCenter => CIVector.vectorWithX(x, Y:y), :inputRadius => radius, :inputAngle => MRGraphics.radians(angle)
+      filter 'CITwirlDistortion', :inputCenter => CIVector.vectorWithX(x, Y:y), :inputRadius => radius, :inputAngle => CoreCanvas.radians(angle)
       self
     end
 
     # apply a bloom effect
     def bloom(radius=10, intensity=1.0)
-      filter 'CIBloom', :inputRadius => MRGraphics.in_range(radius, 0, 100), :inputIntensity => MRGraphics.in_range(intensity, 0.0, 1.0)
+      filter 'CIBloom', :inputRadius => CoreCanvas.in_range(radius, 0, 100), :inputIntensity => CoreCanvas.in_range(intensity, 0.0, 1.0)
       self
     end
 
     # adjust the hue of the image by rotating the color wheel from 0 to 360 degrees
     def hue(angle=180)
-      filter 'CIHueAdjust', :inputAngle => MRGraphics.radians(angle)
+      filter 'CIHueAdjust', :inputAngle => CoreCanvas.radians(angle)
       self
     end
 
@@ -300,25 +300,25 @@ module MRGraphics
   
     # reduce colors with a banding effect
     def posterize(levels=6.0)
-      filter 'CIColorPosterize', :inputLevels => MRGraphics.in_range(levels, 1.0, 300.0)
+      filter 'CIColorPosterize', :inputLevels => CoreCanvas.in_range(levels, 1.0, 300.0)
       self
     end
   
     # detect edges
     def edges(intensity=1.0)
-      filter 'CIEdges', :inputIntensity => MRGraphics.in_range(intensity, 0.0,10.0)
+      filter 'CIEdges', :inputIntensity => CoreCanvas.in_range(intensity, 0.0,10.0)
       self
     end
   
     # apply woodblock-like effect
     def edgework(radius=1.0)
-      filter 'CIEdgeWork', :inputRadius => MRGraphics.in_range(radius, 0.0,20.0)
+      filter 'CIEdgeWork', :inputRadius => CoreCanvas.in_range(radius, 0.0,20.0)
       self
     end
   
     # adjust exposure by f-stop
     def exposure(ev=0.5)
-      filter 'CIExposureAdjust', :inputEV => MRGraphics.in_range(ev, -10.0, 10.0)
+      filter 'CIExposureAdjust', :inputEV => CoreCanvas.in_range(ev, -10.0, 10.0)
       self
     end
   
@@ -330,13 +330,13 @@ module MRGraphics
   
     # adjust brightness (-1 to 1)
     def brightness(value=1.1)
-      filter 'CIColorControls', :inputSaturation => 1.0, :inputBrightness => MRGraphics.in_range(value, -1.0, 1.0), :inputContrast => 1.0
+      filter 'CIColorControls', :inputSaturation => 1.0, :inputBrightness => CoreCanvas.in_range(value, -1.0, 1.0), :inputContrast => 1.0
       self
     end
   
     # adjust contrast (0 to 4)
     def contrast(value=1.5)
-      #value = MRGraphics.in_range(value,0.25,100.0)
+      #value = CoreCanvas.in_range(value,0.25,100.0)
       filter 'CIColorControls', :inputSaturation => 1.0, :inputBrightness => 0.0, :inputContrast => value
       self
     end
@@ -353,7 +353,7 @@ module MRGraphics
   
     # use the gray values of the input image as a displacement map (doesn't work with PNG?)
     def displacement(image, scale=50.0)
-      filter 'CIDisplacementDistortion', :inputDisplacementImage => image.ciimage, :inputScale => MRGraphics.in_range(scale, 0.0, 200.0)
+      filter 'CIDisplacementDistortion', :inputDisplacementImage => image.ciimage, :inputScale => CoreCanvas.in_range(scale, 0.0, 200.0)
       self
     end
   
@@ -361,9 +361,9 @@ module MRGraphics
     def dotscreen(dx=0, dy=0, angle=0, width=6, sharpness=0.7)
       filter 'CIDotScreen',
         :inputCenter => CIVector.vectorWithX(dx.to_f, Y:dy.to_f), 
-        :inputAngle => MRGraphics.max(0, MRGraphics.min(angle, 360)), 
-        :inputWidth => MRGraphics.max(1, MRGraphics.min(width, 50)), 
-        :inputSharpness => MRGraphics.max(0, MRGraphics.min(sharpness, 1))
+        :inputAngle => CoreCanvas.max(0, CoreCanvas.min(angle, 360)), 
+        :inputWidth => CoreCanvas.max(1, CoreCanvas.min(width, 50)), 
+        :inputSharpness => CoreCanvas.max(0, CoreCanvas.min(sharpness, 1))
       self
     end
   

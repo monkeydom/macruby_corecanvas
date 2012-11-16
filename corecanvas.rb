@@ -20,7 +20,7 @@ framework 'Cocoa'
 framework 'Quartz'
 framework 'CoreGraphics'
 
-module MRGraphics
+module CoreCanvas
 
   # UTILITY FUNCTIONS (math/geometry)
   TEST = 'OK'

@@ -1,9 +1,9 @@
 require 'minitest/spec'
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'graphics')
 MiniTest::Unit.autorun
-include MRGraphics
+include CoreCanvas
 
-describe "MRGraphics Canvas" do
+describe "CoreCanvas Canvas" do
   before do
     @destination = File.expand_path("#{File.dirname(__FILE__)}/tmp/test.png")
     @canvas = Canvas.for_image(:filename => @destination) do |c|

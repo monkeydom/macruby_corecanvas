@@ -13,7 +13,7 @@
 # Copyright:: Copyright (c) 2008 James Reynolds
 # License::   Distributes under the same terms as Ruby
 
-module MRGraphics
+module CoreCanvas
 
   # draw watercolor-like painted strokes (adapted from code by Jared Tarbell - complexification.net)
   class SandPainter
@@ -39,7 +39,7 @@ module MRGraphics
       @canvas.push
       # modulate gain
       @gain += random(-0.050, 0.050)
-      @gain = MRGraphics.in_range(@gain, 0.0, 1.0)
+      @gain = CoreCanvas.in_range(@gain, 0.0, 1.0)
       # calculate grains by distance
       #@grains = (sqrt((ox-x)*(ox-x)+(oy-y)*(oy-y))).to_i
 

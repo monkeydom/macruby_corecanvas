@@ -13,7 +13,7 @@
 # Copyright:: Copyright (c) 2008 James Reynolds
 # License::   Distributes under the same terms as Ruby
 
-module MRGraphics
+module CoreCanvas
   
   class Rope
   
@@ -32,14 +32,14 @@ module MRGraphics
       @canvas.stroke_width(@stroke_width)
       @canvas.autoclose_path = false
       @canvas.no_fill
-      hair_x0 = MRGraphics.choose(hair_x0)
-      hair_y0 = MRGraphics.choose(hair_y0)
-      hair_x1 = MRGraphics.choose(hair_x1)
-      hair_y1 = MRGraphics.choose(hair_y1)
-      vx0     = MRGraphics.random(-@canvas.width   / 2,  @canvas.width   / 2) * @roundness
-      vy0     = MRGraphics.random(-@canvas.height  / 2,  @canvas.height  / 2) * @roundness
-      vx1     = MRGraphics.random(-@canvas.width   / 2,  @canvas.width   / 2) * @roundness
-      vy1     = MRGraphics.random(-@canvas.height  / 2,  @canvas.height  / 2) * @roundness
+      hair_x0 = CoreCanvas.choose(hair_x0)
+      hair_y0 = CoreCanvas.choose(hair_y0)
+      hair_x1 = CoreCanvas.choose(hair_x1)
+      hair_y1 = CoreCanvas.choose(hair_y1)
+      vx0     = CoreCanvas.random(-@canvas.width   / 2,  @canvas.width   / 2) * @roundness
+      vy0     = CoreCanvas.random(-@canvas.height  / 2,  @canvas.height  / 2) * @roundness
+      vx1     = CoreCanvas.random(-@canvas.width   / 2,  @canvas.width   / 2) * @roundness
+      vy1     = CoreCanvas.random(-@canvas.height  / 2,  @canvas.height  / 2) * @roundness
       hair_fibers.times do |j|
         #x0,y0,x1,y1 = [@x0.choose,@y0.choose,@x1.choose,@y1.choose]
         @canvas.begin_path(hair_x0, hair_y0)
@@ -60,14 +60,14 @@ module MRGraphics
       @canvas.no_fill
       black = Color.black
       white = Color.white
-      ribbon_x0 = MRGraphics.choose(ribbon_x0)
-      ribbon_y0 = MRGraphics.choose(ribbon_y0)
-      ribbon_x1 = MRGraphics.choose(ribbon_x1)
-      ribbon_y1 = MRGraphics.choose(ribbon_y1)
-      vx0 = MRGraphics.random(-@canvas.width   / 2, @canvas.width  / 2) * @roundness
-      vy0 = MRGraphics.random(-@canvas.height  / 2, @canvas.height / 2) * @roundness
-      vx1 = MRGraphics.random(-@canvas.width   / 2, @canvas.width  / 2) * @roundness
-      vy1 = MRGraphics.random(-@canvas.height  / 2, @canvas.height / 2) * @roundness
+      ribbon_x0 = CoreCanvas.choose(ribbon_x0)
+      ribbon_y0 = CoreCanvas.choose(ribbon_y0)
+      ribbon_x1 = CoreCanvas.choose(ribbon_x1)
+      ribbon_y1 = CoreCanvas.choose(ribbon_y1)
+      vx0 = CoreCanvas.random(-@canvas.width   / 2, @canvas.width  / 2) * @roundness
+      vy0 = CoreCanvas.random(-@canvas.height  / 2, @canvas.height / 2) * @roundness
+      vx1 = CoreCanvas.random(-@canvas.width   / 2, @canvas.width  / 2) * @roundness
+      vy1 = CoreCanvas.random(-@canvas.height  / 2, @canvas.height / 2) * @roundness
       xwidth = rand(ribbon_width)
       ywidth = rand(ribbon_width)
       ribbon_fibers.times do |j|
