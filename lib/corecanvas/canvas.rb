@@ -104,8 +104,7 @@ module CoreCanvas
         # CREATE A PDF DRAWING CONTEXT
         url        = CFURLCreateFromFileSystemRepresentation(nil, @output, @output.length, false)
         pdfrect    = CGRect.new(CGPoint.new(0, 0), CGSize.new(width, height)) # Landscape
-        consumer   = CGDataConsumerCreateWithURL(url);
-        pdfcontext = CGPDFContextCreate(consumer, pdfrect, nil);
+        pdfcontext = CGPDFContextCreateWithURL(url, pdfrect, {KCGPDFContextCreator => "MacRuby CoreCanvas", KCGPDFContextTitle => File.basename(@output,".pdf")});
         CGPDFContextBeginPage(pdfcontext, nil)
         @ctx       = pdfcontext
       when :image, :render
@@ -653,8 +652,10 @@ module CoreCanvas
   #    exif[KCGImagePropertyExifUserComment] = 'Image downloaded from www.sheetmusicplus.com'
   #    exif[KCGImagePropertyExifAuxOwnerName] = 'www.sheetmusicplus.com'
       if @filetype == :pdf
+        CGContextFlush(@ctx)
         CGPDFContextEndPage(@ctx)
         CGContextFlush(@ctx)
+        CGPDFContextClose(@ctx)
         return
       elsif @filetype == :png
         format = NSPNGFileType
