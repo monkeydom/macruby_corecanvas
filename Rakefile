@@ -12,7 +12,7 @@ Gem::PackageTask.new(spec) { }
 
 desc 'Run all examples'
 task :examples do
-	puts "examples\n"
+	puts "Running examples:\n"
 	Dir.glob('examples/*.rb').each do |example|
 		puts example
 		%x[macruby -Ilib "#{example}"]
