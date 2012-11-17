@@ -676,7 +676,6 @@ module CoreCanvas
       bitmaprep = NSBitmapImageRep.alloc.initWithCGImage(cgimageref)     # => NSBitmapImageRep
       blob = bitmaprep.representationUsingType(format, properties:properties) # => NSConcreteData
       blob.writeToFile(@output, atomically:true)
-      puts @output
       true
     end
 
