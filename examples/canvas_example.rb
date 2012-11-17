@@ -15,7 +15,7 @@ ExampleHelper.example_canvas do |c|
 		c.fill(white.copy.darken(rand(0.8)))
 		letters = %W{ g i a n a } 
 		c.text(letters[rand(letters.size)],
-						rand(c.width),
-						rand(c.height))
+		               rand(c.width),
+		               rand(c.height))
 	end
 end

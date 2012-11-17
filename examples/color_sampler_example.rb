@@ -1,9 +1,8 @@
-require 'rubygems'
-require 'corecanvas'
+#!/usr/bin/env macruby
 HERE = File.expand_path(File.dirname(__FILE__))
-require File.join(HERE, 'lib/app_wrapper')
+require File.join(HERE, 'lib/example_helper')
 
-class CustomView < NSView
+class ColorSampler
   include CoreCanvas
 
   def flip_order(ord)
@@ -23,9 +22,9 @@ class CustomView < NSView
     [x, y, order]
   end
 
-  def drawRect(rect)
-    dimensions = [CGRectGetWidth(rect), CGRectGetHeight(rect)]
-    Canvas.for_current_context(:size => dimensions) do |c|
+  def draw
+  	dimensions = [400,500]
+  	ExampleHelper.example_canvas({:size => dimensions}) do |c|
       c.background(Color.gray.lighten(0.4))
       # load image and grab colors
       img = Image.new(File.join(HERE, 'images', '1984.jpg')).saturation(1.9)
@@ -55,7 +54,7 @@ class CustomView < NSView
       second_sort.reverse.each do |color|
         # skip of the color is too white or too black
         next if color.white? || color.brightness < 0.2
-        x, y, order = calculate_position(x, y, order, rect)
+        x, y, order = calculate_position(x, y, order, NSMakeRect(0,0,dimensions[0],dimensions[1]))
         c.push
         sample.fill(color)
         c.draw(sample, x, y)
@@ -67,6 +66,4 @@ class CustomView < NSView
   
 end
 
-app = AppWrapper.new(400,520)
-app.window.contentView = CustomView.alloc.initWithFrame(app.frame)
-app.start
+ColorSampler.new.draw
