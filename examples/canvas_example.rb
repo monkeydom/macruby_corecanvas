@@ -1,35 +1,8 @@
 #!/usr/bin/env macruby
-require 'rubygems'
-require 'corecanvas'
-include CoreCanvas
-
 HERE = File.expand_path(File.dirname(__FILE__))
-#require File.join(HERE, 'lib/example_helper')
-OUTPUT_DIR = File.join(HERE, "results")
-SCRIPT_NAME = File.basename($0, '.rb')
+require File.join(HERE, 'lib/example_helper')
 
-def canvas_example(options={}, &block)
-	default_options = {:size => [400,400]}
-	base_options = default_options.merge(options)
-	
-	output_basename = File.join(OUTPUT_DIR, SCRIPT_NAME)
-	
-	base_seed = srand()
-	
-	srand(base_seed)
-	options = base_options.clone
-	options[:filename] = output_basename + '.png'
-#	p options
-	Canvas.for_image(options, &block).save
-	
-	srand(base_seed)
-	options = base_options.clone
-	options[:filename] = output_basename + '.pdf'
-#	p options
-	Canvas.for_pdf(options, &block).save
-end
-
-canvas_example do |c|
+ExampleHelper.example_canvas do |c|
 	c.background(Color.black)
 	white = Color.white
 	c.fill(white)
@@ -46,5 +19,3 @@ canvas_example do |c|
 						rand(c.height))
 	end
 end
-
-%x[open "#{OUTPUT_DIR}"]
