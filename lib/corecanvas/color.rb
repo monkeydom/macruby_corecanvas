@@ -704,7 +704,7 @@ module CoreCanvas
         colors.push(c)
 
         c = copy
-        c.brightness(max(0.2, brightness+(1-brightness)*0.2))
+        c.brightness([0.2, brightness+(1-brightness)*0.2].max)
         c.saturation(_wrap(saturation, 0.3, 0.1, 0.3))
         colors.push(c)
 
@@ -770,7 +770,7 @@ module CoreCanvas
 
       c = copy.rotate_ryb(160*d)
       c.saturation(_wrap(saturation, 0.25, 0.1, 0.25))
-      c.brightness(max(0.2, brightness))
+      c.brightness([0.2, brightness].max)
       colors.push(c)
 
       c = copy.rotate_ryb(150*d)
