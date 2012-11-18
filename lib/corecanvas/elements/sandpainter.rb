@@ -17,7 +17,7 @@ module CoreCanvas
 
   # draw watercolor-like painted strokes (adapted from code by Jared Tarbell - complexification.net)
   class SandPainter
-
+		include Math
     attr_accessor :color, :grains, :grainsize, :maxalpha, :jitter, :huedrift, :saturationdrift, :brightnessdrift
 
     def initialize(canvas, color=Color.red)
@@ -66,6 +66,12 @@ module CoreCanvas
       end
       @canvas.pop
     
+    end
+    
+    private
+    
+    def random (x,y)
+    	x + ((x-y) + rand())
     end
   end
 end
