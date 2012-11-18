@@ -44,6 +44,18 @@ module CoreCanvas
     }
     BlendModes.default(KCGBlendModeNormal)
     
+    TextDrawingModes = {
+    	:fill             => KCGTextFill,
+    	:stroke           => KCGTextStroke,
+    	:fill_stroke      => KCGTextFillStroke,
+    	:invisible        => KCGTextInvisible,
+    	:fill_clip        => KCGTextFillClip,
+    	:stroke_clip      => KCGTextStrokeClip,
+    	:fill_stroke_clip => KCGTextFillStrokeClip,
+    	:clip             => KCGTextClip
+    }
+    TextDrawingModes.default(KCGTextFill)
+    
     DefaultOptions = {:quality => 0.8, :width => 400, :height => 400}
   
     attr_accessor :width, :height  
@@ -565,6 +577,10 @@ module CoreCanvas
     end
   
     # DRAW TEXT TO CANVAS
+    
+    def text_mode(mode)
+    	CGContextSetTextDrawingMode(@ctx, TextDrawingModes[mode])
+    end
     
     # write the text at x,y using the current fill
     def text(txt="", x=0, y=0, reg=@registration)
