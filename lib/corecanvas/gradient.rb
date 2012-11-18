@@ -23,7 +23,6 @@ module CoreCanvas
     # create a new gradient from black to white
     def initialize(*colors)
       @colorspace = CGColorSpaceCreateDeviceRGB()
-      colors      = colors[0] if colors[0].class == Array
       set(colors)
       pre(true)
       post(true)
@@ -31,7 +30,9 @@ module CoreCanvas
     end
   
     # create a gradient that evenly distributes the given colors
-    def set(colors)
+    def set(*colors)
+      colors  = colors[0] if colors[0].class == Array
+      colors  = nil if colors.class == Array and colors.size == 0
       colors ||= [Color.black, Color.white]
       cgcolors  = []
       locations = []
