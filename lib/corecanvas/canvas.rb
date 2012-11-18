@@ -502,6 +502,7 @@ module CoreCanvas
     end
   
     # push the current drawing context onto the stack
+    # TODO: save all the abstract state as well - e.g. font_size
     def push
       CGContextSaveGState(@ctx)
       @stacksize = @stacksize + 1
@@ -566,13 +567,13 @@ module CoreCanvas
     # DRAW TEXT TO CANVAS
     
     # write the text at x,y using the current fill
-    def text(txt="", x=0, y=0)
+    def text(txt="", x=0, y=0, reg=@registration)
       # not sure that's worth doing that here
       txt = txt.to_s
-      if @registration == :center
-        width = textwidth(txt)
+      if reg == :center
+        width = text_width(txt)
         x = x - width / 2
-        y = y + @fsize / 2
+        y = y - @fsize / 2
       end
       CGContextShowTextAtPoint(@ctx, x, y, txt, txt.length)
     end
