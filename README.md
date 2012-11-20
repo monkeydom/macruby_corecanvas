@@ -4,6 +4,9 @@ MacRuby CoreCanvas is intended to get the excellent HotCocoa Graphics/MacRuby Gr
 
 See [HotCocoa Graphics by drtoast](http://hcg.drtoast.com)
 
+### Disclaimer
+All examples seem to work now, however, I want to change the API quite a bit probably, so don't expect it to be stable yet. I regard it more as a baseline for my own layout engine. I'd probably get rid of some of the concepts that are already in here.
+
 ### Design Goals
 
 - Harness the full power of Quartz and Core Image
