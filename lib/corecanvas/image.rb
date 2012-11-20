@@ -286,9 +286,19 @@ module CoreCanvas
       self
     end
 
+		def color_overlay(color=Color.red)
+			false_color(color,color)
+		end
+
+		def false_color(color1=Color.black, color2=Color.white)
+			ci_color1 = color1.ci_color
+			ci_color2 = color2.ci_color
+			filter 'CIFalseColor', :inputColor0 => ci_color1, :inputColor1 => ci_color2
+		end
+
     # remap colors so they fall within shades of a single color
-    def monochrome(color=Color.gray)
-      filter 'CIColorMonochrome', :inputColor => CIColor.colorWithRed(color.r, green:color.g, blue:color.b, alpha:color.a)
+    def monochrome(color=Color.gray, intensity = 1.0)
+      filter 'CIColorMonochrome', :inputColor => color.ci_color, :inputIntensity => CoreCanvas.in_range(intensity, 0.0, 1.0)
       self
     end
   

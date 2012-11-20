@@ -141,6 +141,9 @@ module CoreCanvas
       # antialiasing
       CGContextSetAllowsAntialiasing(@ctx, true)
 
+			# interpolation_quality
+			CGContextSetInterpolationQuality(@ctx, KCGInterpolationHigh)
+
       # set defaults
       fill            # set the default fill
       no_stroke       # no stroke by default

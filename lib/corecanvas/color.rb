@@ -550,6 +550,14 @@ module CoreCanvas
       self
     end
 
+		def cg_color
+			CGColorCreate(CGColorSpaceCreateDeviceRGB(), [r,g,b,a])
+		end
+
+		def ci_color
+			CIColor.colorWithCGColor cg_color
+		end
+
     # blend with another color (doesn't work?)
     # def blend(color, pct=0.5)
     #   blended = NSColor.blendedColorWithFraction_ofColor(pct,color.rgb)
