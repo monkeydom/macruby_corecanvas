@@ -470,8 +470,9 @@ module CoreCanvas
       end
       colors
     end
-  
-    private
+
+# make this public  
+#    private
   
       # apply the named CoreImage filter using a hash of parameters
       def filter(filtername, parameters)
